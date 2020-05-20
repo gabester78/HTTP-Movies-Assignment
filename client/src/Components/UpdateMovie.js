@@ -17,7 +17,7 @@ const UpdateMovie = (props) => {
       value = parseInt(value, 10);
     }
     if (e.target.name === "stars") {
-      ev.target.value.split(",");
+      e.target.value.split(",");
     }
     setMovie({
       ...movie,
@@ -30,61 +30,65 @@ const UpdateMovie = (props) => {
   };
 
   return (
-    <div>
-      <h3>Let's update your movie.</h3>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="title">
-          Title:
-          <input
-            id="title"
-            type="text"
-            name="title"
-            onChange={handleChange}
-            value={movie.title}
-          />
-        </label>
+    <div className="save-wrapper">
+      <div className="movie-card">
+        <h3>Let's update your movie.</h3>
+        <form className="form" onSubmit={onSubmit}>
+          <label htmlFor="title">
+            Title:
+            <input
+              id="title"
+              type="text"
+              name="title"
+              onChange={handleChange}
+              value={movie.title}
+            />
+          </label>
 
-        <label htmlFor="director">
-          Director:
-          <input
-            id="director"
-            type="text"
-            name="director"
-            onChange={handleChange}
-            value={movie.director}
-          />
-        </label>
+          <label htmlFor="director">
+            Director:
+            <input
+              id="director"
+              type="text"
+              name="director"
+              onChange={handleChange}
+              value={movie.director}
+            />
+          </label>
 
-        <label htmlFor="metascore">
-          Metascore:
-          <input
-            id="metascore"
-            type="text"
-            name="metascore"
-            onChange={handleChange}
-            value={movie.metascore}
-          />
-        </label>
+          <label htmlFor="metascore">
+            Metascore:
+            <input
+              id="metascore"
+              type="text"
+              name="metascore"
+              onChange={handleChange}
+              value={movie.metascore}
+            />
+          </label>
 
-        <label htmlFor="stars">
-          Starring:
-          <input
-            id="stars"
-            type="text"
-            name="stars"
-            onChange={handleChange}
-            value={movie.stars}
-          />
-        </label>
+          <label htmlFor="stars">
+            Starring:
+            <input
+              id="stars"
+              type="text"
+              name="stars"
+              onChange={handleChange}
+              value={movie.stars}
+            />
+          </label>
 
-        <button>Submit</button>
+          <button>Submit</button>
 
-        {/* {this.state.isLoading && (
+          {/* {this.state.isLoading && (
           <div>
             <Loader type="Grid" color="#00BFFF" height={80} width={80} />
           </div>
         )} */}
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
+
+export default UpdateMovie;
