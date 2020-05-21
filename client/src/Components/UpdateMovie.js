@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
-import Loader from "react-loader-spinner";
+// import Loader from "react-loader-spinner";
 
 const formDefault = {
   title: "",
   director: "",
   metascore: "",
   stars: [""],
-  isLoading: false,
 };
 
 const UpdateMovie = (props) => {
@@ -53,7 +52,7 @@ const UpdateMovie = (props) => {
       .catch((err) => console.log(err));
   };
 
-  console.log(props.movieList, "new movie list");
+  // console.log(props.movieList, "new movie list");
 
   return (
     <div className="save-wrapper">
@@ -105,11 +104,11 @@ const UpdateMovie = (props) => {
 
           <button>Submit</button>
 
-          {formDefault.isLoading && (
+          {/* {formDefault.isLoading && (
             <div>
               <Loader type="Grid" color="#00BFFF" height={80} width={80} />
             </div>
-          )}
+          )} */}
         </form>
       </div>
     </div>
