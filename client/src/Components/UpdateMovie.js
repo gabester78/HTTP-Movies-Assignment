@@ -1,14 +1,29 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams, useHistory } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 const formDefault = {
   title: "",
   director: "",
   metascore: "",
   stars: [""],
+  isLoading: false,
 };
 
 const UpdateMovie = (props) => {
   const [movie, setMovie] = useState(formDefault);
+  const { id } = useParams();
+  const { push } = useHistory();
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/movies/${id}`)
+      .then((res) => {
+        setMovie(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
 
   const handleChange = (e) => {
     e.persist();
@@ -27,12 +42,23 @@ const UpdateMovie = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    axios
+      .put(`http://localhost:5000/api/movies/${id}`, movie)
+      .then((res) => {
+        const mergeArrayWithObject = (arr, obj) =>
+          arr && arr.map((t) => (t.id === obj.id ? obj : t));
+        props.setMovieList(mergeArrayWithObject(props.movieList, res.data));
+        push(`/movies/${id}`);
+      })
+      .catch((err) => console.log(err));
   };
+
+  console.log(props.movieList, "new movie list");
 
   return (
     <div className="save-wrapper">
       <div className="movie-card">
-        <h3>Let's update your movie.</h3>
+        <h2>Edit your movie.</h2>
         <form className="form" onSubmit={onSubmit}>
           <label htmlFor="title">
             Title:
@@ -69,9 +95,8 @@ const UpdateMovie = (props) => {
 
           <label htmlFor="stars">
             Starring:
-            <input
+            <textarea
               id="stars"
-              type="text"
               name="stars"
               onChange={handleChange}
               value={movie.stars}
@@ -80,11 +105,11 @@ const UpdateMovie = (props) => {
 
           <button>Submit</button>
 
-          {/* {this.state.isLoading && (
-          <div>
-            <Loader type="Grid" color="#00BFFF" height={80} width={80} />
-          </div>
-        )} */}
+          {formDefault.isLoading && (
+            <div>
+              <Loader type="Grid" color="#00BFFF" height={80} width={80} />
+            </div>
+          )}
         </form>
       </div>
     </div>
